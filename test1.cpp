@@ -1,31 +1,25 @@
-#include <iostream>
-using namespace std;
+/**
+ * 枚举每个数字的所有因子
+ */
 
-long long n, ans;
-int k, len;
-long long d[1000000];
+// int n;// n*n
+// for (int i = 1;i <= n;i++) {
+//   for (int j = 1;j <= i;j++) {
+//     if (i % j == 0) cnt++;
+//   }
+// }
+// int n;
+// // n * sqrt(n) 10^6, 10^3
+// for (int i = 1;i <= n;i++) {
+//   for (int j = 1;j <= sqrt(i);j++) {
+//     if (i % j == 0) cnt += 2;
+//     if (j * j == i) cnt -= 1;
+//   }
+// }
 
-int main() {
-  cin >> n >> k;
-  d[0] = 0;
-  len= 1;
-  ans = 0;
-  for (long long i = 0; i <n; ++i) {
-    ++d[0];
-    for (int j = 0; j + 1<len; ++j) {
-      if (d[j] == k) {
-        d[j] = 0;
-        d[j + 1] += 1;
-        ++ans;
-      }
-    }
-    if (d[len- 1] == k) {
-      d[len - 1] = 0;
-      d[len] =1;
-      ++len;
-      ++ans;
-    }
-  }
-  cout << ans << endl;
-  return 0;
-}
+// 1 到 n之间所有的数字，每个数字都会做因数
+// 计算每个数字当因数的次数
+// int cnt = 0;
+// for (int i = 1;i <= n;i++) {
+//   cnt += n / i;
+// }
