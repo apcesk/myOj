@@ -1,25 +1,33 @@
-/**
- * 枚举每个数字的所有因子
- */
-
-// int n;// n*n
-// for (int i = 1;i <= n;i++) {
-//   for (int j = 1;j <= i;j++) {
-//     if (i % j == 0) cnt++;
-//   }
-// }
-// int n;
-// // n * sqrt(n) 10^6, 10^3
-// for (int i = 1;i <= n;i++) {
-//   for (int j = 1;j <= sqrt(i);j++) {
-//     if (i % j == 0) cnt += 2;
-//     if (j * j == i) cnt -= 1;
-//   }
-// }
-
-// 1 到 n之间所有的数字，每个数字都会做因数
-// 计算每个数字当因数的次数
-// int cnt = 0;
-// for (int i = 1;i <= n;i++) {
-//   cnt += n / i;
-// }
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#define ll long long
+using namespace std;
+#define int long long 
+const int maxn=1000010;
+int n,xl,xr,yl,yr;
+signed main(){
+	cin>>n;
+	cin>>xl>>yl>>xr>>yr;// 矿场的左下角和右上角
+	double ans=1e9;
+	int ansid=0;
+	for(int i=1;i<=n;++i){// 枚举每个矿车
+		int x,y;// 矿车的位置
+		scanf("%lld%lld",&x,&y);
+		double dis;// 最近的距离
+		if(xl<=x&&x<=xr)dis=min(abs(y-yl),abs(y-yr));// 矿车的x坐标介于两个x之间，那么距离就是到y边的距离
+		else if(yl<=y&&y<=yr)dis=min(abs(x-xl),abs(x-xr));// 矿车的y坐标介于两个y之间，那么距离就是到x边距离
+		else 	// 计算矿车距离矩形矿场的4个点哪个最近。
+					dis=min(
+									min(sqrt((x-xl)*(x-xl)+(y-yl)*(y-yl)),
+											sqrt((x-xl)*(x-xl)+(y-yr)*(y-yr))),
+									min(sqrt((x-xr)*(x-xr)+(y-yl)*(y-yl)),
+											sqrt((x-xr)*(x-xr)+(y-yr)*(y-yr)))
+					);
+		if(dis<ans)ans=dis,ansid=i;// 更新最小值
+		printf("%.9lf ",dis);
+	}
+	cout<<endl;
+	cout<<ansid<<endl;
+	return 0;
+}
